@@ -7,8 +7,8 @@ module Webui
       before_action :set_architecture
 
       def index
-        @details = @package.last_build_reason(@repository, @architecture.name)
-
+        @package_name = params[:package_name]
+        @details = @package.last_build_reason(@repository, @architecture.name, @package_name)
         return if @details.explain
 
         redirect_back(fallback_location: package_binaries_path(package: @package, project: @project, repository: @repository.name),
